@@ -1,0 +1,138 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * Design tokens from the Figma "Ui kit" page (node 2:208).
+ * Raw scales are exposed as Tailwind colours (bg-lilac-700, text-grey-800 …);
+ * shadcn semantic tokens below are mapped onto them.
+ */
+@theme {
+  --color-ink: #151515;
+  --color-black-500: #1e1e1e;
+  --color-black-400: #3b3b3b;
+  --color-black-300: #595959;
+  --color-review: #282828;
+
+  --color-grey-300: #dfdfdf;
+  --color-grey-400: #cecece;
+  --color-grey-500: #bebebe;
+  --color-grey-600: #aeaeae;
+  --color-grey-700: #909090;
+  --color-grey-800: #737373;
+
+  --color-lilac-50: #f9f5f9;
+  --color-lilac-100: #f3ebf3;
+  --color-lilac-200: #ede2ec;
+  --color-lilac-400: #e7d8e6;
+  --color-lilac-500: #dac4da;
+  --color-lilac-600: #ceb1cd;
+  --color-lilac-700: #c29dc1;
+  --color-lilac-800: #a282a1;
+  --color-lilac-900: #826781;
+  --color-lilac-950: #624b62;
+
+  --color-search: rgb(118 118 128 / 0.12);
+
+  /* Figma text styles: size / line-height */
+  --text-caption: 12px;
+  --text-caption--line-height: 20px;
+  --text-body2: 14px;
+  --text-body2--line-height: 22px;
+  --text-body1: 16px;
+  --text-body1--line-height: 24px;
+  --text-h3: 20px;
+  --text-h3--line-height: 28px;
+  --text-h2: 24px;
+  --text-h2--line-height: 32px;
+  --text-h1: 28px;
+  --text-h1--line-height: 36px;
+  --text-display: 36px;
+  --text-display--line-height: 36px;
+
+  --container-site: 1180px;
+  --radius-pill: 100px;
+}
+
+@theme inline {
+  --font-sans: var(--font-urbanist), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bodoni), ui-serif, Georgia, serif;
+  --font-script: var(--font-windsong), cursive;
+  --font-review: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: #ffffff;
+  --foreground: var(--color-black-500);
+  --card: #ffffff;
+  --card-foreground: var(--color-black-500);
+  --popover: #ffffff;
+  --popover-foreground: var(--color-black-500);
+  --primary: var(--color-lilac-700);
+  --primary-foreground: #ffffff;
+  --secondary: var(--color-lilac-100);
+  --secondary-foreground: var(--color-black-500);
+  --muted: var(--color-lilac-50);
+  --muted-foreground: var(--color-grey-800);
+  --accent: var(--color-lilac-100);
+  --accent-foreground: var(--color-black-500);
+  /* Not in the design: error colour chosen for >= 4.5:1 contrast on white */
+  --destructive: #b42318;
+  --border: var(--color-grey-300);
+  --input: var(--color-black-300);
+  --ring: var(--color-lilac-700);
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-background text-foreground text-body1;
+  }
+}
+
+@utility container-site {
+  width: 100%;
+  max-width: calc(var(--container-site) + 2 * 1.25rem);
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
