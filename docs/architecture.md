@@ -126,7 +126,7 @@ The promo code is a second cookie (`ch_promo`), re-validated against the databas
 
 ## 7. Authentication and authorization
 
-- Supabase Auth with email/password plus Google and Facebook OAuth. Sessions live in cookies managed by `@supabase/ssr`.
+- Supabase Auth with email/password plus Google OAuth (one button for sign-up and log-in; Facebook was dropped by product-owner decision). Sessions live in cookies managed by `@supabase/ssr`.
 - `proxy.ts` refreshes the session on navigation. This is an optimistic layer only; authorization is enforced again in each action.
 - `features/auth/session.ts` is the data access layer. `getCurrentUser()` calls `supabase.auth.getUser()` (verified against Auth, not the unverified `getSession()`) and returns `{ id, email, fullName }` or `null`.
 - Each protected Server Action (favourite, review, like) calls `requireUser()` itself. RLS enforces the same rule a second time:
@@ -142,7 +142,7 @@ The promo code is a second cookie (`ch_promo`), re-validated against the databas
 
 ## 8. API strategy
 
-- **Server Actions** handle every UI mutation: basket add/update/remove, promo, favourite, like, review, place order, sign up, log in, sign out, reset password, OAuth start.
+- **Server Actions** handle every UI mutation: basket add/update/remove, promo, favourite, like, review, place order, sign up, log in, sign out, reset password, Google sign-in start.
 - **Route Handler** `GET /auth/callback` exists because Supabase redirects the browser to a URL with a `code` parameter.
 - No public JSON API, because no external client is in scope. If one is needed later, it should call the same `services/*` modules.
 

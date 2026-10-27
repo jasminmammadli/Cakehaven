@@ -174,6 +174,23 @@ test.describe("buying a cake as a guest", () => {
     await expect(seen(page, "Log in to save your favourite cakes")).toBeVisible();
     await expect(seen(page, "to add a comment.")).toBeVisible();
   });
+  test("auth pages offer Google only, with a clear message while it is disabled", async ({ page }) => {
+    for (const path of ["/login", "/signup"]) {
+      await page.goto(path);
+      await expect(seen(page, "Continue with Google")).toBeVisible();
+      await expect(page.getByText(/facebook/i)).toHaveCount(0);
+    }
+
+    // Skip the message check when the project already has Google enabled.
+    const settings = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/settings`, {
+      headers: { apikey: process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY! },
+    }).then((response) => response.json());
+    if (settings.external?.google) return;
+
+    await seen(page, "Continue with Google").click();
+    await expect(page.getByText("Sign-in with Google isn't available right now.")).toBeVisible();
+    await expect(page).toHaveURL(/\/signup/);
+  });
 });
 
 test.describe("accounts", () => {

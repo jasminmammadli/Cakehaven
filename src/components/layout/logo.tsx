@@ -1,21 +1,34 @@
 import Link from "next/link";
-import { CakeSlice } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 
-/** CakeHaven wordmark, sized to the 112x27 logo slot in the Figma header. */
+/**
+ * CakeHaven wordmark: "Cake" in the hero serif with "Haven" tucked in as the
+ * hero script, echoing the Bodoni/WindSong pairing of the home headline.
+ */
 export function Logo({ className }: { className?: string }) {
   return (
     <Link
       href="/"
       aria-label="CakeHaven home"
       className={cn(
-        "inline-flex items-center gap-1.5 rounded-md text-[22px] leading-none font-extrabold tracking-tight text-lilac-950 outline-none focus-visible:ring-3 focus-visible:ring-ring/60",
+        "group relative inline-flex items-baseline rounded-md leading-none whitespace-nowrap outline-none select-none focus-visible:ring-3 focus-visible:ring-ring/60",
         className,
       )}
     >
-      <CakeSlice aria-hidden className="size-7 text-lilac-800" strokeWidth={1.75} />
-      CakeHaven
+      <span aria-hidden className="font-display text-[26px] tracking-[-0.02em] text-lilac-950 italic md:text-[30px]">
+        Cake
+      </span>
+      <span
+        aria-hidden
+        className="-ml-0.5 font-script text-[22px] text-lilac-800 transition-transform duration-300 ease-out group-hover:-translate-y-0.5 group-hover:-rotate-3 md:text-[26px]"
+      >
+        Haven
+      </span>
+      <span
+        aria-hidden
+        className="absolute top-0.5 left-[27px] md:left-[32px] size-1.5 rounded-full bg-lilac-700 transition-transform duration-300 group-hover:scale-125 md:size-[7px]"
+      />
     </Link>
   );
 }

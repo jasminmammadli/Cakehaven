@@ -11,7 +11,7 @@ import type { ActionResult } from "@/lib/action-result";
 
 import { logIn, requestPasswordReset, signUp, updatePassword } from "../actions";
 import { PASSWORD_MIN } from "../schemas";
-import { OAuthButtons } from "./oauth-buttons";
+import { GoogleButton } from "./google-button";
 
 type FormState = ActionResult<{ message: string }> | null;
 
@@ -107,7 +107,7 @@ export function SignUpForm({ next }: { next: string }) {
           {pending ? "Creating account…" : "Create account"}
         </Button>
       </form>
-      <OAuthButtons next={next} />
+      <GoogleButton next={next} />
     </div>
   );
 }
@@ -151,7 +151,7 @@ export function LogInForm({ next, initialError }: { next: string; initialError?:
           {pending ? "Logging in…" : "Log in"}
         </Button>
       </form>
-      <OAuthButtons next={next} />
+      <GoogleButton next={next} />
     </div>
   );
 }

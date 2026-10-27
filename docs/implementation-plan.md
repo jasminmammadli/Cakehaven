@@ -33,5 +33,5 @@ Ordered so that each phase leaves the app buildable and the riskiest decisions (
 | --- | --- |
 | Paid fonts (PP Telegraf, OPTIDiode) unavailable | Google substitutes behind one CSS variable each |
 | Build needs a live database (prerendering) | Documented; Vercel env must include Supabase variables for builds |
-| OAuth needs provider apps | Buttons show a clear error until configured; setup in the README |
+| Google OAuth needs a provider app | The button checks the auth settings and shows a clear error until Google is enabled; setup in the README |
 | Cookie basket size | Capped at 20 lines; no prices stored |

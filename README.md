@@ -80,12 +80,12 @@ Try promo code **`SWEET20`** (20% off) and test card **4242 4242 4242 4242** wit
 4. Under **Authentication → URL Configuration**:
    - set **Site URL** to your production URL;
    - add these Redirect URLs: `https://<your-domain>/auth/callback`, `https://*-<team>.vercel.app/auth/callback` (previews) and `http://localhost:3000/auth/callback`.
-5. Under **Authentication → Providers**, enable Email, and optionally **Google** and **Facebook**:
-   - create an OAuth app with each provider;
-   - use `https://<project-ref>.supabase.co/auth/v1/callback` as the authorized redirect URI;
-   - paste the client ID and secret into Supabase.
+5. Under **Authentication → Sign In / Providers**, enable Email and **Google**:
+   - in Google Cloud Console, create an OAuth client ID of type *Web application*;
+   - add `https://<project-ref>.supabase.co/auth/v1/callback` as an authorized redirect URI;
+   - paste the client ID and secret into Supabase. The secret belongs only there, never in `.env*` files.
 
-   Until a provider is enabled, its button shows "Sign-in with … isn't available right now."
+   "Continue with Google" covers both sign-up and log-in. The first sign-in creates the account and takes the name from the Google profile. Until Google is enabled, the button shows "Sign-in with Google isn't available right now." The app checks the project's public auth settings before redirecting.
 
 ## Deploying to Vercel
 

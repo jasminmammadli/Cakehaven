@@ -152,7 +152,7 @@ A licensed Telegraf can be added later by changing one CSS variable (`--font-san
 - **Basket:** `BasketLine` (qty stepper, edit, remove), `OrderSummary`, `PromoCodeForm`, empty state.
 - **Designer:** `CakeDesigner` (preview + flip, option tabs, chips, text input, live total).
 - **Checkout:** `CheckoutStepper`, `PersonalStep`, `PaymentStep` (method tabs, card fields), `AddressStep`, `CheckoutSummary`.
-- **Auth:** `AuthCard` (tabs), `SignUpForm`, `LoginForm`, `ResetPasswordForm`, `OAuthButtons`.
+- **Auth:** `AuthCard` (tabs), `SignUpForm`, `LoginForm`, `ResetPasswordForm`, `GoogleButton`.
 - **Feedback:** toasts (sonner), inline field errors, `loading.tsx` skeletons, `error.tsx`, `not-found.tsx`, empty states (no results, empty basket, no reviews).
 
 ## 6. Interaction requirements
@@ -182,7 +182,7 @@ A licensed Telegraf can be added later by changing one CSS variable (`--font-san
 | Auth tabs | Links between `/signup` and `/login`. |
 | *Create account* | Requires accepting the privacy terms; Supabase sign-up; may require email confirmation (message shown). |
 | *Forgot password?* | Sends a reset email to the address typed in the Email field (validated first). |
-| Google / Facebook | Supabase OAuth redirect. |
+| Google | Supabase OAuth redirect (Facebook removed, see §7). |
 | *Flip the cake* | Mirrors the preview image with a 3D flip animation. **[Assumption]** There is only one preview image. |
 | About-us rows | Expand to show a short answer (accordion). **[Assumption]** The ↗ arrow implies a destination that does not exist. |
 
@@ -192,7 +192,7 @@ Prototype connections: the MCP server does not expose prototype links, so none w
 
 1. **Brand.** The design's logo reads "bakerdays" and the About copy names "Bakingo", both real companies. **[Decision, confirmed]** We use **CakeHaven** with a text wordmark in `lilac` and rewrite those copy lines. The bakerdays logo asset is not used.
 2. **Payment** is a demo. No payment provider is involved and card data never leaves the browser. **[Decision, confirmed]**
-3. **Social sign-in** is wired through Supabase OAuth and needs provider credentials before it works. **[Decision, confirmed]**
+3. **Social sign-in** is Google only, through Supabase OAuth. The design's Facebook button was removed by product-owner decision (2026-10-27), so the single Google button spans the card width with a label instead of the two 220×64 icon buttons. **[Decision, confirmed]**
 4. **Prices.** Cards show `$70.00` while the detail page shows `80$` for a different product, and the basket shows `Sub Total 210$ / Total 260$`. These are inconsistent placeholders. We use one currency format (`$80.00`). The card price is the 0.5 kg price, and the detail page price follows the selected weight. Weight multipliers: 0.5 kg ×1, 1 kg ×1.8, 2 kg ×3.4, 3 kg ×4.8 **[Assumption]**.
 5. **Designer options** and prices are only partly shown (cream options only). The other tabs' options and prices are **[Assumption]** and live in one typed config module.
 6. **Address step** repeats an "Email" field already collected in step 1. **[Deviation]** We replace it with **Postcode**, which a delivery address needs.

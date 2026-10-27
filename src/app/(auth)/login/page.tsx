@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Log in", robots: { index: false } };
 
 const CALLBACK_ERRORS: Record<string, string> = {
   link: "That sign-in link is invalid or has expired. Please try again.",
-  provider: "Sign-in with that provider was cancelled or failed. Please try again.",
+  provider: "Sign-in with Google was cancelled or failed. Please try again.",
 };
 
 async function LogIn({ searchParams }: PageProps<"/login">) {

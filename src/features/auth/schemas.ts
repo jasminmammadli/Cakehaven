@@ -29,5 +29,3 @@ export const newPasswordSchema = z
     message: "Passwords do not match",
   });
 
-export const OAUTH_PROVIDERS = ["google", "facebook"] as const;
-export type OAuthProvider = (typeof OAUTH_PROVIDERS)[number];

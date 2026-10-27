@@ -49,7 +49,7 @@ export function SiteFooter() {
     <footer className="mt-auto border-t-2 border-grey-300 bg-white text-black-500">
       {/* Primary navigation row */}
       <nav aria-label="Footer" className="border-b-2 border-grey-300">
-        <ul className="container-site grid grid-cols-2 gap-x-6 gap-y-[30px] py-10 text-[18px] leading-6 md:flex md:justify-between md:gap-6 md:py-[42px] md:text-h2">
+        <ul className="container-site grid grid-cols-2 gap-x-6 gap-y-5 py-8 text-body1 md:flex md:justify-between md:gap-6 md:text-h3">
           {NAV.map((item) => (
             <li key={item.label}>
               <Link href={item.href} className={linkClass}>
@@ -67,13 +67,13 @@ export function SiteFooter() {
             key={column.title}
             className={
               index === 0
-                ? "container-site py-8 md:mx-0 md:max-w-none md:py-[42px] md:pr-0 md:pl-[max(1.25rem,calc((100vw-1180px)/2))]"
-                : "hidden md:flex md:justify-center md:border-l-2 md:border-grey-300 md:py-[42px] md:last:justify-end md:last:pr-[max(1.25rem,calc((100vw-1180px)/2))]"
+                ? "container-site py-8 md:mx-0 md:max-w-none md:pr-0 md:pl-[max(1.25rem,calc((100vw-1180px)/2))]"
+                : "hidden md:flex md:justify-center md:border-l-2 md:border-grey-300 md:py-8 md:last:justify-end md:last:pr-[max(1.25rem,calc((100vw-1180px)/2))]"
             }
           >
             <div>
-              <h2 className="text-[18px] leading-7 md:text-h3">{column.title}</h2>
-              <ul className="mt-[26px] flex flex-col gap-[26px] text-[18px] leading-7 font-extralight md:text-h3">
+              <h2 className="text-body1 md:text-[18px] md:leading-7">{column.title}</h2>
+              <ul className="mt-5 flex flex-col gap-4 text-body1 font-extralight md:text-[18px] md:leading-7">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <Link href={link.href} className={linkClass}>
@@ -100,15 +100,15 @@ export function SiteFooter() {
                   aria-label={`CakeHaven on ${social.label}`}
                   className={`${linkClass} block`}
                 >
-                  <Image src={social.icon} alt="" width={27} height={27} className="size-[27px]" />
+                  <Image src={social.icon} alt="" width={24} height={24} className="size-6" />
                 </a>
               </li>
             ))}
           </ul>
-          <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkClass} order-2 text-body1 md:order-1 md:text-h3`}>
+          <a href={`mailto:${CONTACT_EMAIL}`} className={`${linkClass} order-2 text-body1 md:order-1 md:text-[18px] md:leading-7`}>
             {CONTACT_EMAIL}
           </a>
-          <p className="order-3 flex items-center gap-2 text-body1 font-extralight md:order-2">
+          <p className="order-3 flex items-center gap-2 text-body2 md:text-body1 font-extralight md:order-2">
             <span aria-hidden>®</span> <CopyrightYear /> All rights reserved
           </p>
         </div>

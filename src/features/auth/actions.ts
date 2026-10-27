@@ -2,7 +2,6 @@
 
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 
 import { invalidInput, type ActionResult } from "@/lib/action-result";
 import { getPublicEnv } from "@/lib/env";
@@ -12,7 +11,6 @@ import { safeNextPath } from "./redirect";
 import {
   logInSchema,
   newPasswordSchema,
-  OAUTH_PROVIDERS,
   resetRequestSchema,
   signUpSchema,
 } from "./schemas";
@@ -137,26 +135,32 @@ export async function updatePassword(_prev: FormState, formData: FormData): Prom
   redirect("/");
 }
 
-export async function signInWithOAuth(
-  provider: string,
-  next: string,
-): Promise<ActionResult> {
-  const parsedProvider = z.enum(OAUTH_PROVIDERS).safeParse(provider);
-  if (!parsedProvider.success) return { ok: false, error: "Unsupported sign-in provider." };
+/** Public GoTrue settings; avoids sending users to a raw "provider is not enabled" error page. */
+async function isGoogleEnabled(): Promise<boolean> {
+  const { NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY } = getPublicEnv();
+  try {
+    const response = await fetch(`${NEXT_PUBLIC_SUPABASE_URL}/auth/v1/settings`, {
+      headers: { apikey: NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY },
+    });
+    if (!response.ok) return false;
+    const settings: { external?: { google?: boolean } } = await response.json();
+    return settings.external?.google === true;
+  } catch {
+    return false;
+  }
+}
+
+/** Google sign-in and sign-up share one flow: Supabase creates the account on first use. */
+export async function signInWithGoogle(next: string): Promise<ActionResult> {
+  const unavailable: ActionResult = { ok: false, error: "Sign-in with Google isn't available right now." };
+  if (!(await isGoogleEnabled())) return unavailable;
 
   const supabase = await createClient();
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: parsedProvider.data,
+    provider: "google",
     options: { redirectTo: callbackUrl(await siteOrigin(), safeNextPath(next)) },
   });
-
-  if (error || !data.url) {
-    // Typically "provider is not enabled" until OAuth credentials are configured.
-    return {
-      ok: false,
-      error: `Sign-in with ${parsedProvider.data === "google" ? "Google" : "Facebook"} isn't available right now.`,
-    };
-  }
+  if (error || !data.url) return unavailable;
 
   redirect(data.url);
 }

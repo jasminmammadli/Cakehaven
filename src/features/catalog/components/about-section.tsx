@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
@@ -28,6 +27,25 @@ const ITEMS = [
   },
 ];
 
+/** Thin ↗ arrow whose head barbs curve back toward the shaft. */
+function SwooshArrow({ className }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M5.5 18.5 18 6" />
+      <path d="M11 6.8C13.6 6.4 16 6.1 18 6c-.1 2-.4 4.4-.8 7" />
+    </svg>
+  );
+}
+
 /** Figma "About us" (node 48:688): 544x360 photo + list of 88px rows. */
 export function AboutSection() {
   return (
@@ -50,11 +68,7 @@ export function AboutSection() {
             <AccordionItem key={item.question} value={item.question} className="border-b border-grey-600">
               <AccordionTrigger hideIcon className="group/about flex min-h-[70px] w-full items-center justify-between gap-6 py-3 text-left text-body1 font-normal hover:no-underline md:min-h-[88px] md:text-h3">
                 <span className="max-w-[380px]">{item.question}</span>
-                <ArrowUpRight
-                  aria-hidden
-                  className="size-[46px] shrink-0 text-black-500 transition-transform duration-200 group-aria-expanded/about:rotate-90 md:size-[54px]"
-                  strokeWidth={1}
-                />
+                <SwooshArrow className="size-7 shrink-0 text-black-500 transition-transform duration-200 group-hover/about:-translate-y-0.5 group-hover/about:translate-x-0.5 group-aria-expanded/about:rotate-90 md:size-8" />
               </AccordionTrigger>
               <AccordionContent className="pb-6 text-body1 text-black-400">{item.answer}</AccordionContent>
             </AccordionItem>
